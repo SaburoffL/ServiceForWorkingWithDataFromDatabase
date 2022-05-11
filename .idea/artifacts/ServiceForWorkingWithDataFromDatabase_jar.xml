@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="jar" build-on-make="true" name="ServiceForWorkingWithDataFromDatabase:jar">
+    <output-path>$PROJECT_DIR$/out/artifacts/ServiceForWorkingWithDataFromDatabase_jar</output-path>
+    <root id="archive" name="ServiceForWorkingWithDataFromDatabase.jar">
+      <element id="module-output" name="ServiceForWorkingWithDataFromDatabase" />
+    </root>
+  </artifact>
+</component>
