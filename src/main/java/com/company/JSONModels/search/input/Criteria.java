@@ -35,7 +35,6 @@ public class Criteria {
      * 4.	Число пассивных покупателей — поиск покупателей, купивших меньше всего товаров. Возвращается не более, чем указанное число покупателей.
      * */
     public int getCriteriaType() {
-        String criteriaType;
         if (lastName != null) {
             return 1;
         }

@@ -2,6 +2,7 @@ package com.company.JSONModels.search.output;
 
 import com.company.Exceptions.CommandLineArgumentsException;
 import com.company.Exceptions.InputFileStructureException;
+import com.company.Exceptions.SQLConnectorException;
 import com.company.JSONModels.ERROR.Error_JsonResponse;
 import com.company.JSONModels.search.input.Criteria;
 import com.company.JSONModels.search.input.Criterias;
@@ -34,7 +35,7 @@ public class Search_Response {
     public Search_Response() {
 
     }
-    public Search_Response(Criterias criterias, String outputJsonFileName) throws InputFileStructureException, CommandLineArgumentsException {
+    public Search_Response(Criterias criterias, String outputJsonFileName) throws InputFileStructureException, CommandLineArgumentsException, SQLConnectorException {
         for (Criteria c: criterias.getCriterionList()) {
             Search_Result search_result = new Search_Result();
             search_result.setCriteria(c);
@@ -43,7 +44,7 @@ public class Search_Response {
         }
     }
 
-    private static void criterionHandler(Search_Result search_result, String outputJsonFileName) throws CommandLineArgumentsException, InputFileStructureException {
+    private static void criterionHandler(Search_Result search_result, String outputJsonFileName) throws InputFileStructureException, SQLConnectorException {
         List<List<String>> SQLResult = new ArrayList<>();
         try {
             switch (search_result.getCriteria().getCriteriaType()) {
@@ -90,9 +91,7 @@ public class Search_Response {
                     String errorMessage = "Ошибка: некорректный критерий поиска \""+
                             gson.toJson(search_result.getCriteria())+"\"";
 
-                    Error_JsonResponse error = new Error_JsonResponse(errorMessage);
-                    OutputJsonFileConstructor.createOutputJson(outputJsonFileName, gson.toJson(error));
-                    throw new InputFileStructureException(errorMessage);
+                    throw new InputFileStructureException(errorMessage, outputJsonFileName);
             }
 
             for (List<String> l: SQLResult) {
@@ -105,14 +104,7 @@ public class Search_Response {
             }
 
         } catch (SQLException e) {
-            GsonBuilder gsonBuilder = new GsonBuilder();
-            Gson gson = gsonBuilder.create();
-
-            String errorMessage = "Внутренняя ошибка: ошибка подключения к базе данных";
-
-            Error_JsonResponse error = new Error_JsonResponse(errorMessage);
-            OutputJsonFileConstructor.createOutputJson(outputJsonFileName, gson.toJson(error));
-            throw new InputFileStructureException(errorMessage);
+            throw new SQLConnectorException(outputJsonFileName);
         }
     }
 }
