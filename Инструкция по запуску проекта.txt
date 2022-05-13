@@ -1,0 +1,11 @@
+1. Для запуска проекта нужно запустить командную строку и перейти в деррикторию: 
+путь до папки с проектом\ServiceForWorkingWithDataFromDatabase\out\artifacts\ServiceForWorkingWithDataFromDatabase_jar, например:
+C:\JavaProgects\ServiceForWorkingWithDataFromDatabase\out\artifacts\ServiceForWorkingWithDataFromDatabase_jar
+
+2. находясь в указанной дерриктории выполнить команду типа: 
+java -jar ServiceForWorkingWithDataFromDatabase.jar тип запроса(search/stat/anyIncorrectType) полный путь до входного файла.json полный путь до выходного файла.json
+пример: java -jar ServiceForWorkingWithDataFromDatabase.jar search C:\jsons\inputJsonFile.json C:\jsons\outputJsonFile.json
+
+3. Результат выполнения программы:
+	в указанной дерриктории (C:\jsons\) будет создан файл (outputJsonFile.json) с ответом на запрос содержащийся во входном
+	файле (C:\jsons\inputJsonFile.json)
