@@ -12,8 +12,8 @@ public class Customer {
         this.name = name;
     }
 
-    public void setPurchases(List<Purchase> purchases) {
-        this.purchases = purchases;
+    public void addToPurchases(Purchase purchase) {
+        purchases.add(purchase);
     }
 
     public void setTotalExpenses(String totalExpenses) {
