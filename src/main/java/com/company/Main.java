@@ -5,8 +5,8 @@ import com.company.JSONModels.search.input.Criterias;
 import com.company.JSONModels.search.output.Search_Response;
 import com.company.JSONModels.stat.input.InputDatas;
 import com.company.JSONModels.stat.output.Stat_Response;
-import com.company.JSONParsers.SearchResponseParser;
-import com.company.JSONParsers.StatResponseParser;
+import com.company.JSONParsers.SearchRequestParser;
+import com.company.JSONParsers.StatRequestParser;
 import com.company.services.OutputJsonFileConstructor;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -51,7 +51,7 @@ public class Main {
         if (operationType.equals("search")) {
             Criterias criterias = new Criterias();
             try {
-                criterias = SearchResponseParser.parse(inputFileName);
+                criterias = SearchRequestParser.parse(inputFileName);
             } catch (FileNotFoundException e) {
                 String errorMessage = "Ошибка: некорректная структура входного файла";
                 throw new InputFileStructureException(errorMessage, outputFileName);
@@ -62,7 +62,7 @@ public class Main {
         else if (operationType.equals("stat")) {
             InputDatas inputDatas = new InputDatas();
             try {
-                inputDatas = StatResponseParser.parse(inputFileName);
+                inputDatas = StatRequestParser.parse(inputFileName);
             } catch (FileNotFoundException e) {
                 String errorMessage = "Ошибка: некорректная структура входного файла";
                 throw new InputFileStructureException(errorMessage, outputFileName);

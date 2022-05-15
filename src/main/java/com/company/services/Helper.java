@@ -5,10 +5,7 @@ import com.company.Exceptions.InputFileStructureException;
 import com.company.Exceptions.SQLConnectorException;
 import com.company.JSONModels.search.input.Criterias;
 import com.company.JSONModels.search.output.Search_Response;
-import com.company.JSONModels.stat.input.InputDatas;
-import com.company.JSONModels.stat.output.Stat_Response;
-import com.company.JSONParsers.SearchResponseParser;
-import com.company.JSONParsers.StatResponseParser;
+import com.company.JSONParsers.SearchRequestParser;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
@@ -35,10 +32,10 @@ public class Helper {
         StringBuilder response = new StringBuilder();
 
         String inputFileName = "C:/jsons/correctJsonFile.json";
-        String outputFileName = "C://jsonchik/jsonskiFile.json";
+        String outputFileName = "C://jsons/jsonskiFile.json";
 
         try {
-            criterias = SearchResponseParser.parse(inputFileName);
+            criterias = SearchRequestParser.parse(inputFileName);
         } catch (FileNotFoundException e) {
             String errorMessage = "Ошибка: некорректная структура входного файла";
             throw new InputFileStructureException(errorMessage, outputFileName);
@@ -47,7 +44,5 @@ public class Helper {
         response.append(gson.toJson(searchResponse));
 
         OutputJsonFileConstructor.createOutputJson(outputFileName, response.toString());
-
     }
-
 }

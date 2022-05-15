@@ -72,6 +72,7 @@ public class Search_Response {
                                     "(select customers_id from public.purchases group by customers_id order by count(customers_id) limit "+
                                     search_result.getCriteria().getBadCustomers()+")"
                     );
+                    break;
                 default:
                     GsonBuilder gsonBuilder = new GsonBuilder();
                     Gson gson = gsonBuilder.create();

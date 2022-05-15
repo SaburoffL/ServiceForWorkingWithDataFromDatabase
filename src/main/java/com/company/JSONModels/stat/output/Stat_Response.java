@@ -18,8 +18,6 @@ public class Stat_Response {
     private String totalExpenses;
     private String avgExpenses;
 
-
-
     public Stat_Response(InputDatas inputDatas, String outputJsonFileName) throws SQLConnectorException {
         List<List<String>> CustomersList = new ArrayList<>();
 
@@ -79,6 +77,5 @@ public class Stat_Response {
             avgExpenses = allCustomerTotalExpenses / customersCount;
         }
         this.avgExpenses = Double.toString(avgExpenses);
-
     }
 }
