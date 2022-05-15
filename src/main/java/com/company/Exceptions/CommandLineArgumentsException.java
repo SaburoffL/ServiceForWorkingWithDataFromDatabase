@@ -1,8 +1,7 @@
 package com.company.Exceptions;
 
-public class CommandLineArgumentsException extends ServiceForWorkingWithDataFromDatabaseException{
-    public CommandLineArgumentsException(String message, String outputFileName) {
+public class CommandLineArgumentsException extends Exception{
+    public CommandLineArgumentsException(String message) {
         super(message);
-        toJson(message, outputFileName);
     }
 }

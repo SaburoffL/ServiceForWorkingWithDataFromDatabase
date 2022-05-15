@@ -1,9 +1,6 @@
 package com.company;
 
-import com.company.Exceptions.CommandLineArgumentsException;
-import com.company.Exceptions.InputFileStructureException;
-import com.company.Exceptions.OperationTypeException;
-import com.company.Exceptions.SQLConnectorException;
+import com.company.Exceptions.*;
 import com.company.JSONModels.search.input.Criterias;
 import com.company.JSONModels.search.output.Search_Response;
 import com.company.JSONModels.stat.input.InputDatas;
@@ -19,8 +16,10 @@ import java.util.Locale;
 
 public class Main {
 
-    public static void main(String[] argc) throws CommandLineArgumentsException, InputFileStructureException, SQLConnectorException, OperationTypeException {
-        if (argc.length != 3) {throw new CommandLineArgumentsException("Incorrect number of command line arguments received",argc[2]);}
+    public static void main(String[] argc) throws CommandLineArgumentsException, InputFileStructureException, SQLConnectorException, OperationTypeException, OutputFileNameException, InputFileNameException {
+        if (argc.length != 3) {
+            throw new CommandLineArgumentsException("Incorrect number of command line arguments received");
+        }
 
         String operationType = argc[0];
         String inputFileName = argc[1];
@@ -30,10 +29,10 @@ public class Main {
         File outputJsonFile = new File(outputFileName);
 
         if (!outputFileName.toLowerCase(Locale.ROOT).endsWith(".json")) {
-            throw new CommandLineArgumentsException("The output file must have .json permission",outputFileName);
+            throw new OutputFileNameException("The output file must have .json permission");
         }
         else if(outputJsonFile.exists()) {
-            throw new CommandLineArgumentsException("File ("+outputFileName+") already exists",outputFileName);
+            throw new OutputFileNameException("File ("+outputFileName+") already exists");
         }
 
         GsonBuilder gsonBuilder = new GsonBuilder();
@@ -42,12 +41,11 @@ public class Main {
 
         if (!inputFileName.toLowerCase(Locale.ROOT).endsWith(".json")) {
             String errorMessage = "The input file must have .json permission";
-            throw new CommandLineArgumentsException(errorMessage, outputFileName);
+            throw new InputFileNameException(errorMessage, outputFileName);
         }
-
         else if (!inputJsonFile.exists()) {
             String errorMessage = "File ("+inputFileName+") not found";
-            throw new CommandLineArgumentsException(errorMessage, outputFileName);
+            throw new InputFileNameException(errorMessage, outputFileName);
         }
 
         if (operationType.equals("search")) {
@@ -56,7 +54,7 @@ public class Main {
                 criterias = SearchResponseParser.parse(inputFileName);
             } catch (FileNotFoundException e) {
                 String errorMessage = "Ошибка: некорректная структура входного файла";
-                throw new CommandLineArgumentsException(errorMessage, outputFileName);
+                throw new InputFileStructureException(errorMessage, outputFileName);
             }
             Search_Response searchResponse = new Search_Response(criterias, outputFileName);
             response.append(gson.toJson(searchResponse));
@@ -67,7 +65,7 @@ public class Main {
                 inputDatas = StatResponseParser.parse(inputFileName);
             } catch (FileNotFoundException e) {
                 String errorMessage = "Ошибка: некорректная структура входного файла";
-                throw new CommandLineArgumentsException(errorMessage, outputFileName);
+                throw new InputFileStructureException(errorMessage, outputFileName);
             }
             Stat_Response stat_response = new Stat_Response(inputDatas, outputFileName);
             response.append(gson.toJson(stat_response));

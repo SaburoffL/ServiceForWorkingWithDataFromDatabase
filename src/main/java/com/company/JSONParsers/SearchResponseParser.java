@@ -1,18 +1,19 @@
 package com.company.JSONParsers;
 
-import com.company.Exceptions.CommandLineArgumentsException;
 import com.company.JSONModels.search.input.Criterias;
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 
 public class SearchResponseParser {
 
-    public static Criterias parse(String fileName) throws CommandLineArgumentsException, FileNotFoundException {
+    public static Criterias parse(String fileName) throws FileNotFoundException {
         Criterias criterias = new Criterias();
 
-        Gson gson = new Gson();
+        GsonBuilder builder = new GsonBuilder();
+        Gson gson = builder.setLenient().create();
         FileReader inputJsonReader = new FileReader(fileName);
         criterias = gson.fromJson(inputJsonReader, Criterias.class);
 

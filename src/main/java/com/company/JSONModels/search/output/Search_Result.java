@@ -16,9 +16,6 @@ public class Search_Result {
         this.criteria = criteria;
     }
 
-    public void setCriteria_Results(List<Criteria_Result> Criteria_Results) {
-        this.Criteria_Results = Criteria_Results;
-    }
 
     public Criteria getCriteria() {
         return this.criteria;

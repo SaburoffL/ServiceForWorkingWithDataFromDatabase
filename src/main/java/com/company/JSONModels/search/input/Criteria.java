@@ -1,5 +1,7 @@
 package com.company.JSONModels.search.input;
 
+import com.google.gson.annotations.SerializedName;
+
 public class Criteria {
     private String lastName;
     private String productName;
@@ -7,6 +9,7 @@ public class Criteria {
     private String minExpenses;
     private String maxExpenses;
     private String badCustomers;
+    private String randomString;
 
     public String getLastName() {
         return lastName;

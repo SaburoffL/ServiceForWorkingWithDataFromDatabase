@@ -3,10 +3,8 @@ package com.company.JSONModels.search.output;
 import com.company.Exceptions.CommandLineArgumentsException;
 import com.company.Exceptions.InputFileStructureException;
 import com.company.Exceptions.SQLConnectorException;
-import com.company.JSONModels.ERROR.Error_JsonResponse;
 import com.company.JSONModels.search.input.Criteria;
 import com.company.JSONModels.search.input.Criterias;
-import com.company.services.OutputJsonFileConstructor;
 import com.company.services.SQLConnector;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -24,17 +22,7 @@ public class Search_Response {
     @SerializedName("results")
     private List<Search_Result> search_results = new ArrayList<>();
 
-    public void setSearch_results(List<Search_Result> search_results) {
-        this.search_results = search_results;
-    }
 
-    public void addToSearch_results(Search_Result search_result) {
-        search_results.add(search_result);
-    }
-
-    public Search_Response() {
-
-    }
     public Search_Response(Criterias criterias, String outputJsonFileName) throws InputFileStructureException, CommandLineArgumentsException, SQLConnectorException {
         for (Criteria c: criterias.getCriterionList()) {
             Search_Result search_result = new Search_Result();
@@ -88,9 +76,8 @@ public class Search_Response {
                     GsonBuilder gsonBuilder = new GsonBuilder();
                     Gson gson = gsonBuilder.create();
 
-                    String errorMessage = "Ошибка: некорректный критерий поиска \""+
-                            gson.toJson(search_result.getCriteria())+"\"";
-
+                    String errorMessage = "Ошибка: некорректный критерий поиска: "+
+                            gson.toJson(search_result.getCriteria());
                     throw new InputFileStructureException(errorMessage, outputJsonFileName);
             }
 
