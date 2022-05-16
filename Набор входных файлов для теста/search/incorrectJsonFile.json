@@ -1,12 +1,12 @@
 {
-"criterias": [ 
-	    {
-        "lastName": "Иванов"
+"criteria": [
+      {
+        "firstName": "Иванов"
       },
       {
         "lastName": "Петров"
       },
-		  {
+      {
         "productName": "минеральная вода",
          "minTimes": 4
       },

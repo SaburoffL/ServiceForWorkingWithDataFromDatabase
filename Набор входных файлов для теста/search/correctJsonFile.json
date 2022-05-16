@@ -1,28 +1,32 @@
 {
-"criterias": [ 
-	    {
+"criterias": [
+      {
         "lastName": "Иванов"
-	"maxExpenses": "567"
       },
       {
-        "lastName": "Петров"
+        "lastName": "Петров",
+        "maxExpenses": "567"
       },
-		  {
+      {
         "productName": "минеральная вода",
          "minTimes": 4
       },
       {
         "badCustomers": 6
       },
-	    {
+      {
         "minExpenses": 1100, 
         "maxExpenses": 1500
       },
       {
         "productName": "колбаса",
-         "minTimes": 3
+        "minTimes": 3
       },
-	    {
+      {
+        "productName": "колбаса",
+        "minTimes": 44
+      },
+      {
         "badCustomers": 3
       }
     ]

@@ -24,11 +24,16 @@ public class Search_Response {
 
 
     public Search_Response(Criterias criterias, String outputJsonFileName) throws InputFileStructureException, CommandLineArgumentsException, SQLConnectorException {
-        for (Criteria c: criterias.getCriterionList()) {
-            Search_Result search_result = new Search_Result();
-            search_result.setCriteria(c);
-            criterionHandler(search_result, outputJsonFileName);
-            search_results.add(search_result);
+        if (!criterias.getCriterionList().isEmpty()) {
+            for (Criteria c: criterias.getCriterionList()) {
+                Search_Result search_result = new Search_Result();
+                search_result.setCriteria(c);
+                criterionHandler(search_result, outputJsonFileName);
+                search_results.add(search_result);
+            }
+        }
+        else {
+            throw new InputFileStructureException("Передан пустой или некорректный запрос", outputJsonFileName);
         }
     }
 

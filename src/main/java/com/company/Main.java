@@ -49,26 +49,24 @@ public class Main {
         }
 
         if (operationType.equals("search")) {
-            Criterias criterias = new Criterias();
             try {
-                criterias = SearchRequestParser.parse(inputFileName);
+                Criterias criterias = SearchRequestParser.parse(inputFileName);
+                Search_Response searchResponse = new Search_Response(criterias, outputFileName);
+                response.append(gson.toJson(searchResponse));
             } catch (FileNotFoundException e) {
                 String errorMessage = "Ошибка: некорректная структура входного файла";
                 throw new InputFileStructureException(errorMessage, outputFileName);
             }
-            Search_Response searchResponse = new Search_Response(criterias, outputFileName);
-            response.append(gson.toJson(searchResponse));
         }
         else if (operationType.equals("stat")) {
-            InputDatas inputDatas = new InputDatas();
             try {
-                inputDatas = StatRequestParser.parse(inputFileName);
+                InputDatas inputDatas = StatRequestParser.parse(inputFileName);
+                Stat_Response stat_response = new Stat_Response(inputDatas, outputFileName);
+                response.append(gson.toJson(stat_response));
             } catch (FileNotFoundException e) {
                 String errorMessage = "Ошибка: некорректная структура входного файла";
                 throw new InputFileStructureException(errorMessage, outputFileName);
             }
-            Stat_Response stat_response = new Stat_Response(inputDatas, outputFileName);
-            response.append(gson.toJson(stat_response));
         }
         else {
             throw new OperationTypeException("Недопустимый тип операции", outputFileName);
